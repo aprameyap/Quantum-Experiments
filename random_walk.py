@@ -54,7 +54,7 @@ def plot_average_distance(n_samples, steps):
     plt.grid(True)
     plt.show()
 
-n_samples = 1000
+n_samples = 1
 steps = 10
 
 plot_average_distance(n_samples, steps)
