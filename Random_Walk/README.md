@@ -13,6 +13,3 @@ But, over a large number of samples, the average distance travelled across all s
 !['fig. 2'](Figure_2.png)
 
 Note: Added multi-core support. Please change the value of ```max_workers=x``` according to your CPU's core count.
-
-
-QCNN: MNIST classification using hybrid models (refer to QCNN/readme.md for more info)
