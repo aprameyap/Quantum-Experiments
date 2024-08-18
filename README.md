@@ -9,8 +9,10 @@ We take a random walk problem of an atom moving inside a 2D lattice, which has 4
 Since, it is a random walk, over a single sample, the average distance travlled would appear to be random (see fig. 1). 
 !['fig. 1'](Figure_1.png)
 
-But, over a large number of samples, the average distance travelled across all samples, appears to be linear (see fig. 2)
+But, over a large number of samples, the average distance travelled across all samples, appears to be a function, \[f(x) \propto \sqrt{x}\] (see fig. 2)
 !['fig. 2'](Figure_2.png)
+
+Note: Added multi-core support. Please change the value of ```max_workers=x``` according to your CPU's core count.
 
 
 QCNN: MNIST classification using hybrid models (refer to QCNN/readme.md for more info)
