@@ -18,44 +18,35 @@ tf.random.set_seed(0)
 dataset = keras.datasets.mnist
 (train_images, train_labels), (test_images, test_labels) = dataset.load_data()
 
-# Reduce dataset size
 train_images = train_images[:n_train]
 train_labels = train_labels[:n_train]
 test_images = test_images[:n_test]
 test_labels = test_labels[:n_test]
 
-# Normalize pixel values within 0 and 1
 train_images = train_images / 255
 test_images = test_images / 255
 
-# Add extra dimension for convolution channels
 train_images = np.array(train_images[..., tf.newaxis], requires_grad=False)
 test_images = np.array(test_images[..., tf.newaxis], requires_grad=False)
 
 dev = qml.device("default.qubit", wires=4)
-# Random circuit parameters
 rand_params = np.random.uniform(high=2 * np.pi, size=(n_layers, 4))
 
 @qml.qnode(dev, interface="autograd")
 def circuit(phi):
-    # Encoding of 4 classical input values
     for j in range(4):
         qml.RY(np.pi * phi[j], wires=j)
 
-    # Random quantum circuit
     RandomLayers(rand_params, wires=list(range(4)))
 
-    # Measurement producing 4 classical output values
     return [qml.expval(qml.PauliZ(j)) for j in range(4)]
 
 def quanv(image):
     """Convolves the input image with many applications of the same quantum circuit."""
     out = np.zeros((14, 14, 4))
 
-    # Loop over the coordinates of the top-left pixel of 2X2 squares
     for j in range(0, 28, 2):
         for k in range(0, 28, 2):
-            # Process a squared 2x2 region of the image with a quantum circuit
             q_results = circuit(
                 [
                     image[j, k, 0],
@@ -64,7 +55,6 @@ def quanv(image):
                     image[j + 1, k + 1, 0]
                 ]
             )
-            # Assign expectation values to different channels of the output pixel (j/2, k/2)
             for c in range(4):
                 out[j // 2, k // 2, c] = q_results[c]
     return out
@@ -84,12 +74,10 @@ if PREPROCESS == True:
         q_test_images.append(quanv(img))
     q_test_images = np.asarray(q_test_images)
 
-    # Save pre-processed images
     np.save(SAVE_PATH + "q_train_images.npy", q_train_images)
     np.save(SAVE_PATH + "q_test_images.npy", q_test_images)
 
 
-# Load pre-processed images
 q_train_images = np.load(SAVE_PATH + "q_train_images.npy")
 q_test_images = np.load(SAVE_PATH + "q_test_images.npy")
 
