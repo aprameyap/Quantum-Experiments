@@ -1,6 +1,4 @@
-# Quantum-Experiments
-Experiments with quantum algorithms and circuits..
-
+# Random walk on a lattice
 What does ```random_walk.py``` do?
 
 Essentially, it aims to solve the problem of random number generation. 
