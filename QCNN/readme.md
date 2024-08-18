@@ -1,5 +1,4 @@
-MNIST Classification with quantum circuits
-
+# MNIST Classification with quantum circuits
 Origin: https://github.com/PennyLaneAI/qml/blob/master/demonstrations/tutorial_quanvolution.py
 
 Classical convolution
